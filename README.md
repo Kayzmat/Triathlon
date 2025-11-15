@@ -20,7 +20,7 @@ Le système doit être accessible via un navigateur, hébergé en ligne, et conf
   - Assurer la qualité via des tests unitaires, fonctionnels et métiers.
 
 🧱 Architecture et technologies
-🔹 Architecture
+🔹Architecture
 Architecture MVC (Model – View – Controller)
 
 🔹 Technologies

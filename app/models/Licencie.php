@@ -2,10 +2,10 @@
 require_once __DIR__ . '/../core/Database.php';
 
 class Licencie {
-    private $db;
+    protected $db;
 
     public function __construct() {
-        $this->db = Database::getInstance()->getConnection();
+        $this->db = Database::getInstance();
     }
 
     public function getAll($filters = []) {
@@ -18,14 +18,9 @@ class Licencie {
             $params[':club_id'] = $filters['club_id'];
         }
 
-        if (!empty($filters['category'])) {
-            $where[] = "l.category = :category";
-            $params[':category'] = $filters['category'];
-        }
-
-        if (!empty($filters['license_type'])) {
-            $where[] = "l.license_type = :license_type";
-            $params[':license_type'] = $filters['license_type'];
+        if (!empty($filters['q'])) {
+            $where[] = "(l.first_name LIKE :q OR l.last_name LIKE :q OR l.email LIKE :q)";
+            $params[':q'] = '%' . $filters['q'] . '%';
         }
 
         if (!empty($where)) {
@@ -53,21 +48,23 @@ class Licencie {
         return $stmt->fetchAll();
     }
 
-    public function create($data) {
-        $sql = "INSERT INTO licencies (license_number, first_name, last_name, birth_date, gender, category, license_type, club_id, email, phone) VALUES (:license_number, :first_name, :last_name, :birth_date, :gender, :category, :license_type, :club_id, :email, :phone)";
+    public function create(array $data) {
+        $sql = "INSERT INTO licencies (license_number, first_name, last_name, birth_date, gender, category, license_type, club_id, email, phone)
+            VALUES (:license_number, :first_name, :last_name, :birth_date, :gender, :category, :license_type, :club_id, :email, :phone)";
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute([
-            ':license_number' => $data['license_number'],
-            ':first_name' => $data['first_name'],
-            ':last_name' => $data['last_name'],
-            ':birth_date' => $data['birth_date'],
-            ':gender' => $data['gender'],
-            ':category' => $data['category'],
-            ':license_type' => $data['license_type'],
-            ':club_id' => $data['club_id'],
+        $stmt->execute([
+            ':license_number' => $data['license_number'] ?? $data['licence_number'] ?? null,
+            ':first_name' => $data['first_name'] ?? null,
+            ':last_name'  => $data['last_name'] ?? null,
+            ':birth_date' => $data['birth_date'] ?? $data['birthdate'] ?? null,
+            ':gender' => $data['gender'] ?? 'M',
+            ':category' => $data['category'] ?? 'Senior',
+            ':license_type' => $data['license_type'] ?? $data['licence_type'] ?? 'Loisir',
+            ':club_id'    => isset($data['club_id']) && $data['club_id'] !== '' ? $data['club_id'] : null,
             ':email' => $data['email'] ?? null,
-            ':phone' => $data['phone'] ?? null
+            ':phone' => $data['phone'] ?? null,
         ]);
+        return $this->db->lastInsertId();
     }
 
     public function update($id, $data) {
@@ -75,16 +72,16 @@ class Licencie {
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
             ':id' => $id,
-            ':license_number' => $data['license_number'],
-            ':first_name' => $data['first_name'],
-            ':last_name' => $data['last_name'],
-            ':birth_date' => $data['birth_date'],
-            ':gender' => $data['gender'],
-            ':category' => $data['category'],
-            ':license_type' => $data['license_type'],
-            ':club_id' => $data['club_id'],
+            ':license_number' => $data['license_number'] ?? $data['licence_number'] ?? null,
+            ':first_name' => $data['first_name'] ?? null,
+            ':last_name' => $data['last_name'] ?? null,
+            ':birth_date' => $data['birth_date'] ?? $data['birthdate'] ?? null,
+            ':gender' => $data['gender'] ?? 'M',
+            ':category' => $data['category'] ?? 'Senior',
+            ':license_type' => $data['license_type'] ?? $data['licence_type'] ?? 'Loisir',
+            ':club_id' => isset($data['club_id']) && $data['club_id'] !== '' ? $data['club_id'] : null,
             ':email' => $data['email'] ?? null,
-            ':phone' => $data['phone'] ?? null
+            ':phone' => $data['phone'] ?? null,
         ]);
     }
 
@@ -98,7 +95,7 @@ class Licencie {
         $sql = "SELECT COUNT(*) as count FROM licencies";
         $stmt = $this->db->query($sql);
         $result = $stmt->fetch();
-        return $result['count'];
+        return (int)($result['count'] ?? 0);
     }
 
     public function getCountByClub($clubId) {
@@ -106,7 +103,7 @@ class Licencie {
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':club_id' => $clubId]);
         $result = $stmt->fetch();
-        return $result['count'];
+        return (int)($result['count'] ?? 0);
     }
 }
 ?>

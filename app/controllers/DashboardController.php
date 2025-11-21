@@ -14,7 +14,8 @@ class DashboardController {
         $this->clubModel = new Club();
         $this->licencieModel = new Licencie();
         $this->triathlonModel = new Triathlon();
-        $this->db = Database::getInstance()->getConnection();
+        // Utiliser le singleton Database qui retourne un objet PDO
+        $this->db = Database::getInstance();
     }
 
     public function index() {

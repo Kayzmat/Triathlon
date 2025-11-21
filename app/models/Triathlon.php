@@ -2,10 +2,24 @@
 require_once __DIR__ . '/../core/Database.php';
 
 class Triathlon {
-    private $db;
+    protected $db;
 
     public function __construct() {
-        $this->db = Database::getInstance()->getConnection();
+        // Remplacement de l'appel invalide PDO::getConnection() par le singleton Database
+        $this->db = Database::getInstance();
+        $this->ensureTable();
+    }
+
+    protected function ensureTable() {
+        // création minimale de la table triathlons pour éviter les erreurs si elle n'existe pas
+        $sql = "CREATE TABLE IF NOT EXISTS triathlons (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(150) NOT NULL,
+            event_date DATE DEFAULT NULL,
+            location VARCHAR(150) DEFAULT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+        $this->db->exec($sql);
     }
 
     public function getAll() {
@@ -84,4 +98,3 @@ class Triathlon {
         return $result['count'];
     }
 }
-?>

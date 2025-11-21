@@ -1,8 +1,5 @@
 <div class="page-title">
     <h1>Ajouter un club</h1>
-    <a href="index.php?module=clubs" class="btn btn-secondary">
-        <i class="fas fa-arrow-left"></i> Retour à la liste
-    </a>
 </div>
 
 <?php if (isset($data['error'])): ?>
@@ -11,48 +8,29 @@
     </div>
 <?php endif; ?>
 
-<div class="form-container">
+<div class="form-container" style="max-width: 500px; margin: 30px auto; background: #f9f9f9; border-radius: 8px; box-shadow: 0 2px 8px #eee; padding: 24px;">
     <form method="POST" action="index.php?module=clubs&action=create">
-        <div class="form-grid">
-            <div class="form-group">
-                <label for="name">Nom du club *</label>
-                <input type="text" id="name" name="name" class="form-control" required
-                       value="<?= htmlspecialchars($_POST['name'] ?? '') ?>">
-            </div>
-
-            <div class="form-group">
-                <label for="address">Adresse *</label>
-                <input type="text" id="address" name="address" class="form-control" required
-                       value="<?= htmlspecialchars($_POST['address'] ?? '') ?>">
-            </div>
-
-            <div class="form-group">
-                <label for="city">Ville *</label>
-                <input type="text" id="city" name="city" class="form-control" required
-                       value="<?= htmlspecialchars($_POST['city'] ?? '') ?>">
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Téléphone</label>
-                <input type="tel" id="phone" name="phone" class="form-control"
-                       value="<?= htmlspecialchars($_POST['phone'] ?? '') ?>">
-            </div>
-
-            <div class="form-group full-width">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" class="form-control"
-                       value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
-            </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+            <label for="name" style="display:block; margin-bottom:6px;">Nom du club</label>
+            <input type="text" name="name" id="name" class="form-control" required style="width:100%; padding:8px; border-radius:4px; border:1px solid #ccc;">
         </div>
-
-        <div class="form-actions">
-            <button type="submit" class="btn">
-                <i class="fas fa-save"></i> Enregistrer le club
-            </button>
-            <a href="index.php?module=clubs" class="btn btn-secondary">
-                <i class="fas fa-times"></i> Annuler
-            </a>
+        <div class="form-group" style="margin-bottom: 16px;">
+            <label for="address" style="display:block; margin-bottom:6px;">Adresse</label>
+            <input type="text" name="address" id="address" class="form-control" required style="width:100%; padding:8px; border-radius:4px; border:1px solid #ccc;">
         </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+            <label for="city" style="display:block; margin-bottom:6px;">Ville</label>
+            <input type="text" name="city" id="city" class="form-control" required style="width:100%; padding:8px; border-radius:4px; border:1px solid #ccc;">
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+            <label for="phone" style="display:block; margin-bottom:6px;">Téléphone</label>
+            <input type="text" name="phone" id="phone" class="form-control" required style="width:100%; padding:8px; border-radius:4px; border:1px solid #ccc;">
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+            <label for="email" style="display:block; margin-bottom:6px;">Email</label>
+            <input type="email" name="email" id="email" class="form-control" required style="width:100%; padding:8px; border-radius:4px; border:1px solid #ccc;">
+        </div>
+        <button type="submit" class="btn btn-primary btn-darkblue" style="width:100%; padding:10px; border-radius:4px;">Ajouter</button>
     </form>
 </div>
 
@@ -66,15 +44,8 @@
     margin: 0 auto;
 }
 
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.form-group.full-width {
-    grid-column: 1 / -1;
+.form-group {
+    margin-bottom: 16px;
 }
 
 .form-group label {
@@ -98,19 +69,21 @@
     outline: none;
 }
 
-.form-actions {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-}
-
-.btn-secondary {
-    background-color: var(--dark-gray);
+.btn-primary,
+.btn-primary.btn-darkblue {
+    background-color: #0056b3;
     color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
 }
 
-.btn-secondary:hover {
-    background-color: #333;
+.btn-primary:hover,
+.btn-primary.btn-darkblue:hover {
+    background-color: #003d80;
 }
 
 @media (max-width: 768px) {

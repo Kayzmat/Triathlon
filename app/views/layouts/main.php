@@ -371,12 +371,6 @@
                         <span>Triathlons</span>
                     </a>
                 </li>
-                <li class="<?= $currentPage === 'resultats' ? 'active' : '' ?>">
-                    <a href="index.php?module=resultats">
-                        <i class="fas fa-chart-bar"></i>
-                        <span>Résultats</span>
-                    </a>
-                </li>
                 <li class="<?= $currentPage === 'settings' ? 'active' : '' ?>">
                     <a href="index.php?module=settings">
                         <i class="fas fa-cog"></i>

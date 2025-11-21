@@ -1,8 +1,5 @@
 <div class="page-title">
     <h1>Modifier le club</h1>
-    <a href="index.php?module=clubs" class="btn btn-secondary">
-        <i class="fas fa-arrow-left"></i> Retour à la liste
-    </a>
 </div>
 
 <?php if (isset($data['error'])): ?>
@@ -12,53 +9,30 @@
 <?php endif; ?>
 
 <?php if (isset($data['club'])): ?>
-<div class="form-container">
+<div class="form-container" style="max-width: 500px; margin: 30px auto; background: #f9f9f9; border-radius: 8px; box-shadow: 0 2px 8px #eee; padding: 24px;">
     <form method="POST" action="index.php?module=clubs&action=edit&id=<?= $data['club']['id'] ?>">
-        <div class="form-grid">
-            <div class="form-group">
-                <label for="name">Nom du club *</label>
-                <input type="text" id="name" name="name" class="form-control" required
-                       value="<?= htmlspecialchars($_POST['name'] ?? $data['club']['name']) ?>">
-            </div>
-
-            <div class="form-group">
-                <label for="address">Adresse *</label>
-                <input type="text" id="address" name="address" class="form-control" required
-                       value="<?= htmlspecialchars($_POST['address'] ?? $data['club']['address']) ?>">
-            </div>
-
-            <div class="form-group">
-                <label for="city">Ville *</label>
-                <input type="text" id="city" name="city" class="form-control" required
-                       value="<?= htmlspecialchars($_POST['city'] ?? $data['club']['city']) ?>">
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Téléphone</label>
-                <input type="tel" id="phone" name="phone" class="form-control"
-                       value="<?= htmlspecialchars($_POST['phone'] ?? $data['club']['phone']) ?>">
-            </div>
-
-            <div class="form-group full-width">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" class="form-control"
-                       value="<?= htmlspecialchars($_POST['email'] ?? $data['club']['email']) ?>">
-            </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+            <label for="name" style="display:block; margin-bottom:6px;">Nom du club</label>
+            <input type="text" name="name" id="name" class="form-control" required value="<?= htmlspecialchars($data['club']['name']) ?>" style="width:100%; padding:8px; border-radius:4px; border:1px solid #ccc;">
         </div>
-
-        <div class="form-actions">
-            <button type="submit" class="btn">
-                <i class="fas fa-save"></i> Mettre à jour
-            </button>
-            <a href="index.php?module=clubs" class="btn btn-secondary">
-                <i class="fas fa-times"></i> Annuler
-            </a>
+        <div class="form-group" style="margin-bottom: 16px;">
+            <label for="address" style="display:block; margin-bottom:6px;">Adresse</label>
+            <input type="text" name="address" id="address" class="form-control" required value="<?= htmlspecialchars($data['club']['address']) ?>" style="width:100%; padding:8px; border-radius:4px; border:1px solid #ccc;">
         </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+            <label for="city" style="display:block; margin-bottom:6px;">Ville</label>
+            <input type="text" name="city" id="city" class="form-control" required value="<?= htmlspecialchars($data['club']['city']) ?>" style="width:100%; padding:8px; border-radius:4px; border:1px solid #ccc;">
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+            <label for="phone" style="display:block; margin-bottom:6px;">Téléphone</label>
+            <input type="text" name="phone" id="phone" class="form-control" required value="<?= htmlspecialchars($data['club']['phone']) ?>" style="width:100%; padding:8px; border-radius:4px; border:1px solid #ccc;">
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+            <label for="email" style="display:block; margin-bottom:6px;">Email</label>
+            <input type="email" name="email" id="email" class="form-control" required value="<?= htmlspecialchars($data['club']['email']) ?>" style="width:100%; padding:8px; border-radius:4px; border:1px solid #ccc;">
+        </div>
+        <button type="submit" class="btn btn-primary btn-darkblue" style="width:100%; padding:10px; border-radius:4px;">Enregistrer</button>
     </form>
-</div>
-<?php else: ?>
-<div style="background: #fee; color: #c33; padding: 20px; border-radius: 4px; text-align: center;">
-    Club non trouvé.
 </div>
 <?php endif; ?>
 
